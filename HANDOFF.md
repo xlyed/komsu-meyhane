@@ -152,3 +152,110 @@ Yapılacaklar (asset geldikçe sırayla):
 - Tüm Türkçe metin **`lib/content.ts`'de** — gelecek session'da bileşene hard-code yazmamaya dikkat.
 
 ---
+
+## 2026-05-25 — Session 3 (Phase 3 asset entegrasyonu + copy + GitHub + Vercel)
+
+### Ne yapıldı
+
+**Asset pipeline kuruldu:**
+- `brew install ffmpeg` + `pip3 install Pillow` (local image/video toolchain)
+- `assets-raw/` → `website/public/` aktarımı sırasıyla
+
+**Logo (`logo.jpg`, 87KB, navy daire + beyaz elementler):**
+- Pillow ile beyaz arka plan (255,255,255) → alpha 0 (250–235 arası feather)
+- Bounding box auto-crop
+- 5 boyut: `logo.png` (1576×1575, 533K) + `logo-512/192/64/32.png`
+- İkinci varyant: Pillow ile **dairesel alpha mask** (4× supersampling, LANCZOS downscale) → `logo-original.png` (528K, beyaz halo yok, sadece navy daire)
+- Favicon: `app/icon.png` (512px) + `app/apple-icon.png` (192px), eski default `favicon.ico` silindi
+
+**Hero videosu (`hero video.mp4`, 6.6MB, 1920×1080, 8s):**
+- 4 varyant ffmpeg ile: desktop mp4 (CRF 26, 2.3MB) + webm (CRF 34, 2.6MB), mobile 1280×720 mp4 (CRF 28, 746K) + webm (CRF 36, 1.1MB), hepsi audio-stripped + `-movflags +faststart`
+- Poster: ilk frame 1s'den JPG 1920×1080 (209K)
+
+**Atmosphere fotoları (image1/2/3.png → 1.9–2.4MB):**
+- ffmpeg q:v 3 ile JPG'ye → 225K / 295K / 337K
+- Atama: candle (rakı+gün batımı+mum), sea (meyhane silüeti), table (zeytin altında sofra)
+
+**Component güncellemeleri:**
+- `Hero.tsx`: gradient placeholder → `<video autoplay muted loop playsinline preload="metadata" poster>` + `<source>` (webm + mp4). Initial mobile/desktop swap **JS state ile** (`window.matchMedia("(max-width: 767px)")` + `useEffect`) — `<source media>` HTML spec'te `<video>` için kaldırıldı (sadece `<picture>` için).
+- `Hero.tsx` **stacking context fix**: section'a `isolate` eklendi (yoksa negatif z-index'li `<video>` body bg-navy-deep'in altına düşüyor — kullanıcı raporladı, düzeltildi)
+- `Navbar.tsx`: 2 logo crossfade (`transition-opacity duration-700 ease-out`) — hero üstünde şeffaf, scroll'da orijinal dairesel, smooth fade
+- `Footer.tsx`: marka kolonu üstüne logo (w-16 / w-18) eklendi
+- `Atmosphere.tsx`: gradient'ler → `<Image fill sizes>` + dark overlay (chip + caption korundu)
+
+**İçerik revizyonu (`lib/content.ts`):**
+- Müşteri ChatGPT'yi kullanmak için **boş şablon** istedi — ben vibe açıklaması + alan tag'leri + karakter sınırlı boş şablon yazdım
+- ChatGPT'den dönen metin geldi → 7 bölümün tüm copy'si değişti (hero, atmosphere x4 alan, story x5 alan, menu x4 alan, gallery x3 alan, location sectionTitle, footer x2 alan)
+- Korunanlar: brand.name, nav.links, ctaPrimary.href (tel), menu.categories items, location phone/address/hours/mapsUrl/mapsEmbedSrc, footer.instagramUrl
+- Tek editorial fix: ChatGPT atmosphere eyebrow'u "ATMOSPHERE" (büyük + İngilizce) yazmıştı, ben "Atmosfer" yaptım (diğer eyebrow'lar Türkçe title case ile uyum için) — kullanıcıya bildirildi
+
+**Instagram URL aktif edildi:**
+- `footer.instagramUrl` = `https://www.instagram.com/komsu_meyhane/`
+- `footer.instagramHandle` = `@komsu_meyhane`
+- "Yakında" rozeti otomatik kayboldu
+
+**Google reviews konuşuldu:**
+- Müşteriye manuel curated (önerilen) vs Places API tradeoff'u açıklandı → müşteri **vazgeçti**, eklenmiyor
+
+**GitHub repo oluşturuldu:**
+- `gh repo create komsu-meyhane --public --source=. --remote=origin --push` ile tek komutta
+- URL: **https://github.com/xlyed/komsu-meyhane**
+- 3 commit push edildi: scaffold + Phase 2 + Phase 3
+- Account: `xlyed` (gh auth zaten authenticated)
+
+**Vercel setup walkthrough yapıldı:**
+- CLI değil **web dashboard** önerildi (non-tech user, GitHub import en hızlı)
+- Adım adım talimatlar verildi
+- Müşteri New Project ekranına ulaştı: Importing from `xlyed/komsu-meyhane`, Project Name `komsu-meyhane`, Vercel Team `baturaycelikk-1446's pr...` (Hobby)
+- **Kritik düzeltme:** Root Directory `./` → `website` (Next.js iskeleti subfolder'da). Müşteri Edit ile düzeltti, Preset otomatik Next.js'e döndü
+- Deploy butonuna basıldı, build başlatıldı (session sonunda canlı URL henüz alınmadı)
+
+### Verilen kararlar (kilitli)
+
+- **Logo dual-state pattern:** İki PNG (`logo.png` şeffaf + `logo-original.png` dairesel) üst üste `absolute inset-0`, opacity'ler `scrolled || mobileOpen` state'ine bağlı, 700ms ease-out. Footer'da sadece şeffaf versiyon. Mobile menü açılınca da scrolled state'i tetikleniyor.
+- **Hero video stacking:** Section'a `isolate` ŞART. Negative z-index'li çocuk `<video>` aksi halde body bg-navy-deep'in altına düşüyor. Tekrarlama: bu pattern her video/img bg kullandığımız section için geçerli.
+- **Hero source swap:** `<source media>` `<video>` içinde **spec dışı** — sadece `<picture>` için geçerli. JS ile `matchMedia` + state ile `videoBase` swap ediyoruz. `key={videoBase}` ile React'a yeni video element oluştur diyoruz, yoksa cached video stay alabilir.
+- **Vercel Root Directory `website` kritik:** Repo iskeleti subfolder'da, root değil. Her yeni deploy/Preview branch için Vercel zaten aynı setting'i kullanır, sorun değil.
+- **Tailwind v4 canonical class isimleri:** `w-[72px]` → `w-18`, `z-[1]` → `z-1`. IDE diagnostic anında flagliyor, doğru hali yaz.
+- **Next.js image optimizer cache busting:** Asset dosyası değişip ismi aynı kalırsa `_next/image` eski versiyonu serve eder. `.next/` sil + dev server restart çözer. Production'da hash değişeceği için sorun yok.
+- **PIL feather technique logo için işe yaradı:** beyaz → alpha 0 + 235–250 arası lineer feather kenar smoothness'i yeterli. ImageMagick kurmaya gerek yok.
+
+### Bir sonraki session = canlı kontrol + kalan Phase 3 + Phase 4 hazırlık
+
+1. **Vercel deploy sonucunu doğrula** — canlı URL aç, gerçek mobile cihaz + desktop testi (video performansı, logo crossfade, navbar scroll, lightbox)
+2. **Hâlâ bekleyen Phase 3 asset'leri** (sırayla, müşteri gönderdikçe):
+   - Gallery 8-12+ foto (şu an placeholder gradient)
+   - Gerçek menü (kategoriler + yemekler `lib/content.ts` menu.categories)
+   - Gerçek çalışma saatleri (`location.hours` + JSON-LD `openingHours`)
+   - Google Maps embed iframe (claim'li işletme paylaş > yerleştir)
+3. **Phase 4 polish:**
+   - Lighthouse audit (Performance >90 hedef, A11y >95, SEO 100)
+   - `app/opengraph-image.tsx` veya `.jpg` (sosyal paylaşım kartı)
+   - `robots.txt` + `app/sitemap.ts`
+   - Mobile cihazda video hard-test (3G/4G simülasyonu)
+4. **Custom domain** (müşteri domain alırsa): Vercel'de Add Domain + DNS A/CNAME ayarı
+
+### Bir sonraki session'da nereden başlanacak
+
+- Bu HANDOFF entry'sini oku
+- Müşteriye sor: "Vercel deploy bitti mi, canlı URL geldi mi? Önce orayı test mi edelim, yoksa başka bir iş mi var?"
+
+### Müşteriden bekleniyor
+
+- **Vercel deploy canlı URL'si** (Deploy bittikten sonra paylaşılacak)
+- **Google Maps embed iframe** (önceki session'da business.google.com Ads link'i paylaşıldı, public embed URL gerekiyor → adım adım talimat verildi)
+- **Gerçek çalışma saatleri** (Pazartesi kapalı vb. detaylar)
+- **Gallery için 8-12+ foto** (sofra, atmosfer, yemek, dış mekan — varied set)
+- **Gerçek menü** (kategoriler + günlük seçenekler) — `menu.categories` örnek meyhane klasikleriyle dolu, live'a çıkmadan değişmeli
+- **Custom domain** (komsumeyhane.com vb. — opsiyonel)
+
+### Notlar / Bilinen riskler
+
+- **Repo public** — kod açık, ileride env var eklenirse (`.env*` zaten gitignore'da, dikkat).
+- **Menu örnek yemekler hala live olabilir** — Phase 3'te bunu değiştirmeden müşteri canlıya basarsa example data görünür. Müşteriye hatırlatılmalı.
+- **Map iframe hala search-based URL** — yanlış konum gösterme riski devam ediyor, gerçek embed gelene kadar.
+- **Vercel Hobby plan** — free tier, custom domain destekli ama büyük trafik olursa upgrade gerekebilir (şu an risk yok).
+- **ChatGPT copy inconsistency riski** — bir alan İngilizce/farklı casing geldiyse manuel temizliyoruz, ileride dikkat.
+- **Hero video uzunluğu sadece 8s** — loop hissi belirgin olabilir. Daha uzun bir video geldiğinde değiştirilebilir.
+
+---
