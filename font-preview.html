@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Komşu Meyhane — Font Karşılaştırma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy-deep: #0B1B2B;
+    --navy-soft: #1A2E42;
+    --gold-sunset: #C8954C;
+    --amber-candle: #E8B872;
+    --cream: #F5EFE4;
+    --cream-warm: #EBE3D3;
+    --gray-stone: #8A8377;
+    --ocean-soft: #3D5A7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--navy-deep); color: var(--cream); min-height: 100vh; }
+  body {
+    font-family: 'Inter', sans-serif;
+    padding: 48px 24px;
+    line-height: 1.5;
+  }
+  .top-bar {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .top-bar h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-sunset);
+    margin-bottom: 8px;
+  }
+  .top-bar p {
+    color: var(--gray-stone);
+    font-size: 14px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+
+  .card {
+    background: var(--navy-soft);
+    border: 1px solid rgba(200,149,76,0.15);
+    border-radius: 4px;
+    padding: 56px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-label {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-sunset);
+    font-weight: 500;
+  }
+  .card-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-stone);
+    margin-bottom: 24px;
+  }
+
+  /* === OPTION A: Fraunces + Inter === */
+  .opt-a .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    font-variation-settings: "opsz" 144;
+  }
+  .opt-a .hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--cream-warm);
+    margin-bottom: 32px;
+    max-width: 90%;
+    line-height: 1.6;
+  }
+  .opt-a .section-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--amber-candle);
+    margin-bottom: 16px;
+    font-variation-settings: "opsz" 72;
+  }
+  .opt-a .body-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--cream-warm);
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+  .opt-a .small-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-sunset);
+  }
+
+  /* === OPTION B: Cormorant Garamond + Manrope === */
+  .opt-b .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 5.5vw, 72px);
+    letter-spacing: 0.04em;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .opt-b .hero-subtitle {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--cream-warm);
+    margin-bottom: 32px;
+    max-width: 90%;
+    line-height: 1.6;
+  }
+  .opt-b .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 36px;
+    color: var(--amber-candle);
+    margin-bottom: 16px;
+  }
+  .opt-b .body-text {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--cream-warm);
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+  .opt-b .small-label {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-sunset);
+  }
+
+  /* === Shared button styles === */
+  .buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 28px;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .opt-a .btn { font-family: 'Inter', sans-serif; }
+  .opt-b .btn { font-family: 'Manrope', sans-serif; }
+
+  .btn-primary {
+    background: var(--gold-sunset);
+    color: var(--navy-deep);
+    border: 1px solid var(--gold-sunset);
+  }
+  .btn-primary:hover {
+    background: var(--amber-candle);
+    border-color: var(--amber-candle);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(245,239,228,0.4);
+  }
+  .btn-secondary:hover {
+    border-color: var(--cream);
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(200,149,76,0.2);
+    margin: 40px 0;
+  }
+
+  .character-note {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(200,149,76,0.15);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--gray-stone);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .character-note strong {
+    color: var(--cream-warm);
+    font-style: normal;
+    display: block;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 64px;
+    color: var(--gray-stone);
+    font-size: 13px;
+  }
+  footer code {
+    background: var(--navy-soft);
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: var(--amber-candle);
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Komşu Meyhane · Font Karşılaştırma</h1>
+  <p>İki seçeneği yan yana incele ve hangisini sevdiğini söyle</p>
+</div>
+
+<div class="grid">
+
+  <!-- =================== OPTION A =================== -->
+  <div class="card opt-a">
+    <div class="card-label">Seçenek A</div>
+    <div class="card-tag">Fraunces · Inter</div>
+
+    <h2 class="hero-title">KOMŞU MEYHANE</h2>
+    <p class="hero-subtitle">Meze, deniz ve muhabbetin Ayvalık'taki komşusu.</p>
+
+    <div class="buttons">
+      <a class="btn btn-primary">Rezervasyon Yap</a>
+      <a class="btn btn-secondary">Menüyü İncele</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="small-label">Atmosfer</div>
+    <h3 class="section-heading" style="margin-top:10px;">Denizin yanı başında uzun sofralar</h3>
+    <p class="body-text">
+      Ayvalık'ta gün batarken sokakların kokusu değişir. Tuz, asma yaprağı,
+      közlenmiş biber. Komşu Meyhane, bu kokuların ortasında, denize bir
+      adım mesafede, sabırlı bir akşamın başladığı yerdir.
+    </p>
+    <p class="body-text">
+      Buraya gelenler acelesizdir. Bir kadeh rakı buz kararırken, sofraya
+      önce balık değil; sohbet konur.
+    </p>
+
+    <div class="character-note">
+      <strong>Karakter:</strong>
+      Fraunces modern bir serif — sıcak, biraz oynak, biraz edebi. Inter ise
+      tertemiz ve okunaklı. Bu eşleşme "çağdaş ama dokulu" hissi verir —
+      yeni nesil butik restoranların tercihi.
+    </div>
+  </div>
+
+  <!-- =================== OPTION B =================== -->
+  <div class="card opt-b">
+    <div class="card-label">Seçenek B</div>
+    <div class="card-tag">Cormorant Garamond · Manrope</div>
+
+    <h2 class="hero-title">KOMŞU MEYHANE</h2>
+    <p class="hero-subtitle">Meze, deniz ve muhabbetin Ayvalık'taki komşusu.</p>
+
+    <div class="buttons">
+      <a class="btn btn-primary">Rezervasyon Yap</a>
+      <a class="btn btn-secondary">Menüyü İncele</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="small-label">Atmosfer</div>
+    <h3 class="section-heading" style="margin-top:10px;">Denizin yanı başında uzun sofralar</h3>
+    <p class="body-text">
+      Ayvalık'ta gün batarken sokakların kokusu değişir. Tuz, asma yaprağı,
+      közlenmiş biber. Komşu Meyhane, bu kokuların ortasında, denize bir
+      adım mesafede, sabırlı bir akşamın başladığı yerdir.
+    </p>
+    <p class="body-text">
+      Buraya gelenler acelesizdir. Bir kadeh rakı buz kararırken, sofraya
+      önce balık değil; sohbet konur.
+    </p>
+
+    <div class="character-note">
+      <strong>Karakter:</strong>
+      Cormorant Garamond klasik bir serif — ince, zarif, biraz daha "şarap
+      kartı" havasında. Manrope yumuşak ve modern. Bu eşleşme daha
+      "Akdeniz–boutique–romantik" — Yunan adası tavernası hissi.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Bu önizleme sadece yazı tipi karşılaştırması için. Asıl site bu yazı tipleri
+  <code>next/font</code> ile yüklenecek (Google Fonts üzerinden değil) — sıfır performans kaybı.
+</footer>
+
+</body>
+</html>

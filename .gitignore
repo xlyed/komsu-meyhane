@@ -1,0 +1,33 @@
+# Raw asset originals (kept outside version control)
+assets-raw/
+
+# Node
+website/node_modules/
+website/.next/
+website/out/
+website/build/
+
+# Logs
+website/npm-debug.log*
+website/yarn-debug.log*
+website/yarn-error.log*
+
+# Env
+website/.env*.local
+website/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Testing / cache
+website/coverage/
+website/.turbo/
+
+# TypeScript build info
+website/*.tsbuildinfo
+website/next-env.d.ts
