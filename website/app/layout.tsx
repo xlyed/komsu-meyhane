@@ -1,7 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { content } from "@/lib/content";
+
+export const viewport: Viewport = {
+  themeColor: "#0B1B2B",
+  width: "device-width",
+  initialScale: 1,
+};
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -63,6 +69,12 @@ export default function RootLayout({
       className={`${cormorant.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-navy-deep text-cream-warm">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-200 focus:bg-gold-sunset focus:text-navy-deep focus:px-4 focus:py-2 focus:font-body focus:text-sm"
+        >
+          İçeriğe geç
+        </a>
         {children}
         <script
           type="application/ld+json"
