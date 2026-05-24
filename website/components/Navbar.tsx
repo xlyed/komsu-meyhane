@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { content } from "@/lib/content";
@@ -36,10 +37,35 @@ export function Navbar() {
       <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
         <Link
           href="#top"
-          className="font-display text-lg md:text-xl text-cream tracking-[0.08em] hover:text-amber-candle transition-colors"
+          className="group flex items-center gap-3 hover:text-amber-candle transition-colors"
           onClick={() => setMobileOpen(false)}
+          aria-label={content.brand.name}
         >
-          {content.brand.name}
+          <span className="relative block w-9 h-9 md:w-10 md:h-10 shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={40}
+              height={40}
+              priority
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-out ${
+                scrolled || mobileOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <Image
+              src="/images/logo-original.png"
+              alt=""
+              width={40}
+              height={40}
+              priority
+              className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-out ${
+                scrolled || mobileOpen ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </span>
+          <span className="font-display text-lg md:text-xl text-cream tracking-[0.08em] group-hover:text-amber-candle transition-colors">
+            {content.brand.name}
+          </span>
         </Link>
 
         <ul className="hidden md:flex items-center gap-10">

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { content } from "@/lib/content";
@@ -13,25 +14,42 @@ export function Hero() {
   const stagger = prefersReducedMotion ? 0 : 0.18;
   const duration = prefersReducedMotion ? 0.001 : 0.9;
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const videoBase = isMobile ? "/video/hero-mobile" : "/video/hero-desktop";
+
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] w-full overflow-hidden flex items-end"
+      className="relative isolate min-h-svh w-full overflow-hidden flex items-end"
     >
+      <video
+        key={videoBase}
+        aria-hidden
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/hero-poster.jpg"
+        className="absolute inset-0 z-0 w-full h-full object-cover"
+      >
+        <source src={`${videoBase}.webm`} type="video/webm" />
+        <source src={`${videoBase}.mp4`} type="video/mp4" />
+      </video>
       <div
         aria-hidden
-        className="absolute inset-0 -z-20"
+        className="absolute inset-0 z-1"
         style={{
           background:
-            "linear-gradient(160deg, #0B1B2B 0%, #1A2E42 38%, #3D5A7A 65%, #C8954C 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 85% 95%, rgba(232,184,114,0.35), transparent 60%), linear-gradient(to top, rgba(11,27,43,0.85) 0%, rgba(11,27,43,0.35) 40%, rgba(11,27,43,0.1) 70%)",
+            "radial-gradient(ellipse 80% 60% at 85% 95%, rgba(232,184,114,0.25), transparent 60%), linear-gradient(to top, rgba(11,27,43,0.85) 0%, rgba(11,27,43,0.45) 40%, rgba(11,27,43,0.25) 70%)",
         }}
       />
 
@@ -109,9 +127,6 @@ export function Hero() {
         <ChevronDown size={16} className="animate-bounce" />
       </motion.div>
 
-      <p className="absolute top-24 right-6 md:right-10 z-10 font-body text-[10px] tracking-wider uppercase text-cream-warm/40">
-        Görsel placeholder · Video gelince değişecek
-      </p>
     </section>
   );
 }

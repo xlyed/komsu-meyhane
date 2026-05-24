@@ -1,23 +1,24 @@
+import Image from "next/image";
 import { Flame, Waves, UtensilsCrossed } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { content } from "@/lib/content";
 
 const cardVisuals = {
   candle: {
-    gradient:
-      "radial-gradient(ellipse 70% 80% at 50% 90%, rgba(232,184,114,0.55), transparent 65%), linear-gradient(160deg, #1A2E42 0%, #0B1B2B 60%, #2A1810 100%)",
+    src: "/images/atmosphere-candle.jpg",
+    alt: "Gün batımında rakı doldurulan kadehler ve mum",
     Icon: Flame,
     iconTint: "text-amber-candle",
   },
   sea: {
-    gradient:
-      "radial-gradient(ellipse 80% 60% at 30% 20%, rgba(61,90,122,0.5), transparent 60%), linear-gradient(190deg, #1A2E42 0%, #0B1B2B 70%, #3D5A7A 100%)",
+    src: "/images/atmosphere-sea.jpg",
+    alt: "Ayvalık'ta deniz kenarında meyhanenin gün batımı silüeti",
     Icon: Waves,
     iconTint: "text-cream",
   },
   table: {
-    gradient:
-      "radial-gradient(ellipse 70% 70% at 60% 70%, rgba(200,149,76,0.4), transparent 65%), linear-gradient(150deg, #1A2E42 0%, #0B1B2B 50%, #1A1410 100%)",
+    src: "/images/atmosphere-table.jpg",
+    alt: "Zeytin ağacının altında hazırlanmış sofra ve deniz manzarası",
     Icon: UtensilsCrossed,
     iconTint: "text-gold-sunset",
   },
@@ -61,27 +62,27 @@ export function Atmosphere() {
                 className={layout}
               >
                 <article className="relative w-full h-full group overflow-hidden">
-                  <div
-                    className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
-                    style={{ background: visual.gradient }}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-navy-deep/80 via-navy-deep/10 to-transparent" />
+                  <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-[1.03]">
+                    <Image
+                      src={visual.src}
+                      alt={visual.alt}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/30 to-navy-deep/10" />
 
                   <div className="relative h-full flex flex-col justify-between p-7 md:p-9">
-                    <div className="inline-flex items-center gap-2 w-fit border border-cream/20 px-3 py-1.5 bg-navy-deep/30 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 w-fit border border-cream/20 px-3 py-1.5 bg-navy-deep/40 backdrop-blur-sm">
                       <Icon size={13} className={visual.iconTint} />
                       <span className="font-body text-[10px] tracking-[0.25em] uppercase text-cream-warm/80">
                         {card.title}
                       </span>
                     </div>
-                    <div className="space-y-3">
-                      <p className="font-display italic font-light text-cream text-xl md:text-2xl leading-snug max-w-xs">
-                        {card.caption}
-                      </p>
-                      <p className="font-body text-[10px] tracking-wider uppercase text-cream-warm/35">
-                        Görsel placeholder
-                      </p>
-                    </div>
+                    <p className="font-display italic font-light text-cream text-xl md:text-2xl leading-snug max-w-xs">
+                      {card.caption}
+                    </p>
                   </div>
                 </article>
               </FadeIn>

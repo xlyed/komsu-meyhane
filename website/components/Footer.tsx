@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { content } from "@/lib/content";
 
@@ -36,6 +37,13 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
           <div className="md:col-span-1">
+            <Image
+              src="/images/logo.png"
+              alt=""
+              width={72}
+              height={72}
+              className="w-16 h-16 md:w-18 md:h-18 mb-5"
+            />
             <h3 className="font-display font-light text-cream text-2xl md:text-3xl tracking-[0.06em]">
               {content.brand.name}
             </h3>

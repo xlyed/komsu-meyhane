@@ -14,51 +14,51 @@ export const content = {
     reserveHref: "tel:05309053535",
   },
   hero: {
-    title: "Deniz kenarında, akşamın en sevdiğin yeri.",
+    title: "Kıyıda başlayan uzun akşamlar",
     subtitle:
-      "Ayvalık'ta gün batımının bir akşama dönüştüğü, uzun sofraların huzuruyla.",
+      "Denizin sesi, mum ışığı ve ağır ilerleyen sofralar aynı masada buluşuyor.",
     ctaPrimary: { label: "Rezervasyon", href: "tel:05309053535" },
-    ctaSecondary: { label: "Menüyü Gör", href: "#menu" },
-    scrollHint: "Aşağı kaydır",
+    ctaSecondary: { label: "Menü", href: "#menu" },
+    scrollHint: "Aşağı in",
   },
   atmosphere: {
     eyebrow: "Atmosfer",
-    sectionTitle: "Bir akşamın ritmi",
-    lead: "Mum ışığı, ahşap masalar, denizin tuzu. Komşu Meyhane bir restoran değil, bir ev hissi.",
+    sectionTitle: "Akşamın ritmine bırak",
+    lead: "Gün batımı yavaşça geceye dönerken masalar dolmaya başlar. Burada zaman acele etmez.",
     cards: [
       {
         key: "candle",
-        title: "Mum ışığı",
-        caption: "Akşam loşlaşırken her masada küçük bir alev.",
+        title: "Sessiz Işık",
+        caption: "Mumların arasında gece usulca derinleşir.",
       },
       {
         key: "sea",
-        title: "Denizin nefesi",
-        caption: "Tuz ve sakinlik — kıyıya iki adım.",
+        title: "Kıyı Havası",
+        caption: "Denizden gelen serinlik masalara karışır.",
       },
       {
         key: "table",
-        title: "Uzun sofra",
-        caption: "Acelesi olmayan tabaklar, tazelenen kadehler.",
+        title: "Uzun Sofralar",
+        caption: "Paylaşılan tabaklar gecenin ritmini belirler.",
       },
     ],
   },
   story: {
     eyebrow: "Hikâye",
-    sectionTitle: "Komşuluk, bir tabağın etrafında başlar.",
+    sectionTitle: "Bazı akşamlar yalnızca yaşanmak ister.",
     paragraphs: [
-      "Komşu Meyhane, Ayvalık'ın eski mahallelerinden birinde, denizin hemen yanında doğdu. Buraya gelenler komşu olur — kısa süreliğine de olsa.",
-      "Mezelerimiz mevsiminde, balıklarımız o sabahki. Şarabımız Ege'den, sohbetimiz uzun. Acelemiz yok; sofranın da yok.",
-      "Aile yemeği gibi başlayan akşamlar, yıldızlar çıktığında bambaşka bir tat alır. Sen de bizim komşumuz ol.",
+      "Burada hiçbir şey acele başlamaz. Önce masaya rüzgâr oturur, ardından hafif bir müzik ve uzun sohbetler gelir. Günün gürültüsü kıyıda yavaş yavaş geride kalır.",
+      "Rakılar ağır ağır doldurulur, tabaklar ortaya gelir. Akşam derinleştikçe masaların ritmi değişir; sohbetler uzar, kahkahalar çoğalır, zaman biraz daha hafif akar.",
+      "Bizim için meyhane yalnızca yemek değil, bir ruh hâlidir. Uzayan akşamların, eski şarkıların ve aynı masada tekrar buluşmanın bahanesidir. Bazı insanlar bir kez gelir, sonra hep geri döner.",
     ],
-    pullQuote: "Acelemiz yok.",
+    pullQuote: "Gece yavaşlasın.",
   },
   menu: {
-    eyebrow: "Menü",
-    sectionTitle: "Sofra",
+    eyebrow: "Lezzet",
+    sectionTitle: "Menü",
     intro:
-      "Mezelerimiz her gün taze hazırlanır, balıklarımız o günün avına göre değişir. Aşağıdakiler örnek — mevsimine göre yenilenir.",
-    note: "Tam menü için lütfen bize ulaşın.",
+      "Mevsimine göre değişen mezeler ve kıyı sofralarından ilham alan tatlar hazırlıyoruz. Her tabak uzun akşamlara eşlik etsin diye düşünülüyor.",
+    note: "Tam menü ve günlük seçenekler için bizi arayın.",
     categories: [
       {
         key: "meze",
@@ -111,8 +111,8 @@ export const content = {
   },
   gallery: {
     eyebrow: "Galeri",
-    sectionTitle: "Anlardan",
-    lead: "Bir akşamdan kalan kareler. Fotoğraflar geldiğinde buraya yerleşecek.",
+    sectionTitle: "Akşamlar",
+    lead: "Bazı anlar yalnızca ışığıyla bile hatırlanır.",
     items: [
       {
         caption: "Gün batımı, kıyının hemen yanı",
@@ -166,7 +166,7 @@ export const content = {
   },
   location: {
     eyebrow: "Konum",
-    sectionTitle: "Deniz kenarında bizi bul.",
+    sectionTitle: "Kıyının sakin bir köşesinde, uzun sofraların yanında buluşuyoruz.",
     name: "Komşu Meyhane",
     phone: "0530 905 35 35",
     address: "Sakarya Mah. Atatürk Bulv. 20. Sokak No:5, Ayvalık",
@@ -180,13 +180,13 @@ export const content = {
       "https://www.google.com/maps?q=Kom%C5%9Fu+Meyhane+Sakarya+Mah+Atat%C3%BCrk+Bulvar%C4%B1+Ayval%C4%B1k&output=embed",
   },
   footer: {
-    tagline: "Ayvalık'ta deniz kenarında bir meyhane.",
+    tagline: "Uzayan akşamların kıyısında.",
     contactEyebrow: "İletişim",
     socialEyebrow: "Sosyal",
     socialPending: "Yakında",
-    instagramUrl: "",
-    instagramHandle: "@komsumeyhane",
-    backToTop: "Yukarıya dön",
+    instagramUrl: "https://www.instagram.com/komsu_meyhane/",
+    instagramHandle: "@komsu_meyhane",
+    backToTop: "Başa Dön",
     copyright: "© 2026 Komşu Meyhane. Tüm hakları saklıdır.",
   },
 } as const;
