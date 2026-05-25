@@ -14,25 +14,9 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Atmosphere />
-        <div
-          aria-hidden
-          className="h-5 bg-linear-to-b from-navy-deep to-navy-soft"
-        />
         <Story />
-        <div
-          aria-hidden
-          className="h-5 bg-linear-to-b from-navy-soft to-navy-deep"
-        />
         <Menu />
-        <div
-          aria-hidden
-          className="h-5 bg-linear-to-b from-navy-deep to-navy-soft"
-        />
         <Gallery />
-        <div
-          aria-hidden
-          className="h-5 bg-linear-to-b from-navy-soft to-navy-deep"
-        />
         <Location />
       </main>
       <Footer />
