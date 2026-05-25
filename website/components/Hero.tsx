@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
 const EASE = [0.22, 0.61, 0.36, 1] as const;
@@ -64,21 +65,22 @@ export function Hero() {
             Ayvalık · Deniz Kenarı
           </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration, delay: baseDelay + stagger, ease: EASE }}
+          <TextReveal
+            as="h1"
+            text={content.hero.title}
+            triggerOnMount
+            delay={baseDelay + stagger}
+            stagger={prefersReducedMotion ? 0 : 0.05}
+            duration={duration}
             className="font-display font-light text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-[0.04em]"
-          >
-            {content.hero.title}
-          </motion.h1>
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration,
-              delay: baseDelay + stagger * 2,
+              delay: baseDelay + stagger + 0.9,
               ease: EASE,
             }}
             className="font-display italic font-light text-amber-candle text-xl md:text-2xl mt-6 leading-snug"
@@ -91,7 +93,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration,
-              delay: baseDelay + stagger * 3,
+              delay: baseDelay + stagger + 1.15,
               ease: EASE,
             }}
             className="flex flex-wrap gap-3 mt-10 md:justify-end"

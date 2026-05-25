@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Lightbox, type LightboxItem } from "@/components/ui/Lightbox";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
 export function Gallery() {
@@ -38,9 +39,13 @@ export function Gallery() {
           <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {content.gallery.eyebrow}
           </p>
-          <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">
-            {content.gallery.sectionTitle}
-          </h2>
+          <TextReveal
+            as="h2"
+            text={content.gallery.sectionTitle}
+            stagger={0.07}
+            delay={0.1}
+            className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]"
+          />
           <p className="font-body italic text-cream-warm/60 text-sm md:text-base mt-5">
             {content.gallery.lead}
           </p>

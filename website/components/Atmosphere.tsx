@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Flame, Waves, UtensilsCrossed } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
 const cardVisuals = {
@@ -37,9 +38,13 @@ export function Atmosphere() {
           <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {content.atmosphere.eyebrow}
           </p>
-          <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">
-            {content.atmosphere.sectionTitle}
-          </h2>
+          <TextReveal
+            as="h2"
+            text={content.atmosphere.sectionTitle}
+            stagger={0.07}
+            delay={0.1}
+            className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]"
+          />
           <p className="font-display italic font-light text-amber-candle text-lg md:text-xl mt-6 max-w-xl leading-relaxed">
             {content.atmosphere.lead}
           </p>

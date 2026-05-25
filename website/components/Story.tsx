@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/ui/FadeIn";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
 export function Story() {
@@ -21,9 +22,13 @@ export function Story() {
           <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-6 leading-[1.2]">
             {content.story.eyebrow}
           </p>
-          <h2 className="font-display font-light text-cream text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-[0.02em]">
-            {content.story.sectionTitle}
-          </h2>
+          <TextReveal
+            as="h2"
+            text={content.story.sectionTitle}
+            stagger={0.08}
+            delay={0.1}
+            className="font-display font-light text-cream text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-[0.02em]"
+          />
           <div className="flex justify-center mt-10">
             <span className="block h-px w-16 bg-gold-sunset/50" />
           </div>
