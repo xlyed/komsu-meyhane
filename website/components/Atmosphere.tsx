@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Flame, Waves, UtensilsCrossed } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { ImageReveal } from "@/components/ui/ImageReveal";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
@@ -67,16 +68,18 @@ export function Atmosphere() {
                 className={layout}
               >
                 <article className="relative w-full h-full group overflow-hidden">
-                  <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-[1.03]">
-                    <Image
-                      src={visual.src}
-                      alt={visual.alt}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/30 to-navy-deep/10" />
+                  <ImageReveal className="absolute inset-0">
+                    <div className="relative w-full h-full transition-transform duration-1000 ease-out group-hover:scale-[1.03]">
+                      <Image
+                        src={visual.src}
+                        alt={visual.alt}
+                        fill
+                        sizes="(min-width: 768px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/30 to-navy-deep/10" />
+                  </ImageReveal>
 
                   <div className="relative h-full flex flex-col justify-between p-7 md:p-9">
                     <div className="inline-flex items-center gap-2 w-fit border border-cream/20 px-3 py-1.5 bg-navy-deep/40 backdrop-blur-sm">

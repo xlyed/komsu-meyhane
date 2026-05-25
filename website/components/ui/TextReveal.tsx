@@ -52,22 +52,23 @@ export function TextReveal({
       {...viewTriggerProps}
     >
       {words.map((word, i) => (
-        <motion.span
-          key={i}
-          aria-hidden
-          className="inline-block"
-          variants={{
-            hidden: { opacity: 0, y: "0.4em" },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration, ease: EASE },
-            },
-          }}
-        >
-          {word}
-          {i < words.length - 1 ? " " : ""}
-        </motion.span>
+        <span key={i}>
+          <motion.span
+            aria-hidden
+            className="inline-block"
+            variants={{
+              hidden: { opacity: 0, y: "0.4em" },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration, ease: EASE },
+              },
+            }}
+          >
+            {word}
+          </motion.span>
+          {i < words.length - 1 ? " " : ""}
+        </span>
       ))}
     </Container>
   );

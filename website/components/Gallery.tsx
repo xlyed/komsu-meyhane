@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { ImageReveal } from "@/components/ui/ImageReveal";
 import { Lightbox, type LightboxItem } from "@/components/ui/Lightbox";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
@@ -65,11 +66,13 @@ export function Gallery() {
                 aria-label={`${item.caption} — büyük göster`}
                 className="group relative w-full h-full overflow-hidden block rounded-sm transition-shadow duration-500 hover:ring-1 hover:ring-gold-sunset/20"
               >
-                <div
-                  className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  style={{ background: item.gradient }}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-navy-deep/70 via-navy-deep/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                <ImageReveal className="absolute inset-0">
+                  <div
+                    className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    style={{ background: item.gradient }}
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-navy-deep/70 via-navy-deep/10 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                </ImageReveal>
                 <div className="absolute inset-x-0 bottom-0 p-5 translate-y-1 opacity-90 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                   <p className="font-display italic font-light text-cream text-base md:text-lg leading-snug">
                     {item.caption}
