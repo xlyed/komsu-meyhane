@@ -34,7 +34,7 @@ export function Atmosphere() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <FadeIn className="max-w-2xl">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {content.atmosphere.eyebrow}
           </p>
           <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">

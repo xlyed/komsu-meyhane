@@ -10,7 +10,7 @@ export function Menu() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <FadeIn className="max-w-2xl mx-auto text-center">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {content.menu.eyebrow}
           </p>
           <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">
@@ -27,7 +27,7 @@ export function Menu() {
               key={category.key}
               delay={(i % 2) * 0.1 + Math.floor(i / 2) * 0.05}
             >
-              <article className="group relative h-full border border-cream/10 bg-navy-soft/30 p-8 md:p-10 transition-all duration-500 ease-out hover:border-gold-sunset/30 hover:bg-navy-soft/50 hover:-translate-y-1">
+              <article className="group relative h-full border border-cream/10 bg-navy-soft/30 p-8 md:p-10 transition-all duration-500 ease-out hover:border-gold-sunset/30 hover:bg-navy-soft/50 hover:-translate-y-1 hover:shadow-[inset_0_0_24px_rgba(232,184,114,0.05)]">
                 <header className="mb-6">
                   <p className="font-body text-[10px] tracking-[0.25em] uppercase text-amber-candle/70 mb-2">
                     {category.subtitle}
@@ -52,7 +52,7 @@ export function Menu() {
                       </span>
                       <span
                         aria-hidden
-                        className="hidden sm:block flex-1 border-b border-dotted border-cream/15 translate-y-[-4px]"
+                        className="hidden sm:block flex-1 border-b border-dotted border-gray-stone/30 -translate-y-1"
                       />
                       <span className="font-display italic text-amber-candle/80 text-sm md:text-base leading-snug">
                         {item.note}

@@ -16,7 +16,7 @@ const variants: Record<Variant, string> = {
   primary:
     "bg-gold-sunset text-navy-deep hover:bg-amber-candle hover:-translate-y-px",
   outline:
-    "border border-cream/30 text-cream hover:border-cream/70 hover:bg-cream/5",
+    "border border-cream/30 text-cream hover:border-cream/70 hover:bg-cream/5 hover:-translate-y-px",
 };
 
 type Props = {
@@ -41,7 +41,8 @@ export function Button({
 
   if (href) {
     const isExternal = external ?? /^(https?:|mailto:|tel:)/.test(href);
-    if (isExternal) {
+    const isHash = href.startsWith("#");
+    if (isExternal || isHash) {
       return (
         <a
           href={href}

@@ -53,14 +53,14 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-[10px] tracking-[0.3em] uppercase text-gold-sunset mb-5">
+            <p className="font-body text-[10px] tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
               {footer.contactEyebrow}
             </p>
             <ul className="space-y-3">
               <li>
                 <a
                   href={`tel:${location.phone.replace(/\s/g, "")}`}
-                  className="font-display text-cream text-base md:text-lg hover:text-amber-candle transition-colors"
+                  className="relative inline-block font-display text-cream text-base md:text-lg hover:text-amber-candle transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-amber-candle/70 after:transition-transform after:duration-500 hover:after:scale-x-100"
                 >
                   {location.phone}
                 </a>
@@ -74,7 +74,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="font-body text-[10px] tracking-[0.3em] uppercase text-gold-sunset mb-5">
+            <p className="font-body text-[10px] tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
               {footer.socialEyebrow}
             </p>
             {hasInstagram ? (
@@ -82,10 +82,12 @@ export function Footer() {
                 href={footer.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 font-display text-cream text-base md:text-lg hover:text-amber-candle transition-colors"
+                className="group inline-flex items-center gap-2.5 font-display text-cream text-base md:text-lg hover:text-amber-candle transition-colors"
               >
                 <InstagramIcon size={18} />
-                <span>{footer.instagramHandle}</span>
+                <span className="relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-amber-candle/70 after:transition-transform after:duration-500 group-hover:after:scale-x-100">
+                  {footer.instagramHandle}
+                </span>
               </a>
             ) : (
               <div className="inline-flex items-center gap-2.5 text-cream-warm/60">
@@ -100,12 +102,12 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-body text-xs text-cream-warm/40">
+          <p className="font-body text-xs text-gray-stone/70">
             {footer.copyright}
           </p>
           <a
             href="#top"
-            className="group inline-flex items-center gap-2 font-body text-xs tracking-[0.2em] uppercase text-cream-warm/50 hover:text-amber-candle transition-colors"
+            className="group inline-flex items-center gap-2 font-body text-xs tracking-[0.25em] uppercase text-cream-warm/50 hover:text-amber-candle transition-colors"
           >
             <span>{footer.backToTop}</span>
             <ArrowUp

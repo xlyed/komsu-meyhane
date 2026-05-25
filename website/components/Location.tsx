@@ -11,7 +11,7 @@ export function Location() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <FadeIn className="max-w-2xl">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {loc.eyebrow}
           </p>
           <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">
@@ -35,10 +35,10 @@ export function Location() {
           </FadeIn>
 
           <FadeIn delay={0.1} className="lg:col-span-2 order-1 lg:order-2">
-            <div className="h-full flex flex-col justify-between gap-8 lg:py-2">
+            <div className="h-full flex flex-col justify-between gap-8 lg:py-2 lg:pl-8 lg:border-l lg:border-ocean-soft/30">
               <ul className="space-y-7">
-                <li className="flex gap-4">
-                  <span className="shrink-0 mt-1 text-gold-sunset">
+                <li className="group flex gap-4">
+                  <span className="shrink-0 mt-1 text-gold-sunset transition-colors duration-500 group-hover:text-amber-candle">
                     <MapPin size={18} />
                   </span>
                   <div>
@@ -51,8 +51,8 @@ export function Location() {
                   </div>
                 </li>
 
-                <li className="flex gap-4">
-                  <span className="shrink-0 mt-1 text-gold-sunset">
+                <li className="group flex gap-4">
+                  <span className="shrink-0 mt-1 text-gold-sunset transition-colors duration-500 group-hover:text-amber-candle">
                     <Phone size={18} />
                   </span>
                   <div>
@@ -68,8 +68,8 @@ export function Location() {
                   </div>
                 </li>
 
-                <li className="flex gap-4">
-                  <span className="shrink-0 mt-1 text-gold-sunset">
+                <li className="group flex gap-4">
+                  <span className="shrink-0 mt-1 text-gold-sunset transition-colors duration-500 group-hover:text-amber-candle">
                     <Clock size={18} />
                   </span>
                   <div>

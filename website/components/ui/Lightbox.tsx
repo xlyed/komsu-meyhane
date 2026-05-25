@@ -116,9 +116,12 @@ export function Lightbox({ open, items, index, onClose, onPrev, onNext }: Props)
               {current.render()}
             </div>
             {current.caption && (
-              <p className="font-display italic font-light text-amber-candle/90 text-base md:text-lg text-center max-w-2xl">
-                {current.caption}
-              </p>
+              <div className="flex flex-col items-center">
+                <span aria-hidden className="h-px w-8 bg-gold-sunset/40 mb-3" />
+                <p className="font-display italic font-light text-amber-candle/90 text-base md:text-lg tracking-[0.02em] text-center max-w-2xl">
+                  {current.caption}
+                </p>
+              </div>
             )}
             {items.length > 1 && (
               <p className="font-body text-[10px] tracking-[0.25em] uppercase text-cream-warm/40">

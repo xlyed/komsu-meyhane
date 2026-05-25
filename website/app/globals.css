@@ -19,6 +19,7 @@ html {
   color: var(--color-cream-warm);
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  text-wrap: pretty;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -32,6 +33,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+.font-display {
+  font-kerning: auto;
 }
 
 ::selection {

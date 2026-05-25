@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -35,7 +34,7 @@ export function Navbar() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
-        <Link
+        <a
           href="#top"
           className="group flex items-center gap-3 hover:text-amber-candle transition-colors"
           onClick={() => setMobileOpen(false)}
@@ -66,23 +65,23 @@ export function Navbar() {
           <span className="font-display text-lg md:text-xl text-cream tracking-[0.08em] group-hover:text-amber-candle transition-colors">
             {content.brand.name}
           </span>
-        </Link>
+        </a>
 
         <ul className="hidden md:flex items-center gap-10">
           {content.nav.links.map((link) => (
             <li key={link.href}>
-              <Link
+              <a
                 href={link.href}
-                className="font-body text-sm text-cream-warm/80 hover:text-amber-candle transition-colors duration-300"
+                className="relative inline-block font-body text-sm text-cream-warm/80 hover:text-amber-candle transition-colors duration-300 after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-amber-candle/70 after:transition-transform after:duration-500 hover:after:scale-x-100"
               >
                 {link.label}
-              </Link>
+              </a>
             </li>
           ))}
           <li>
             <a
               href={content.nav.reserveHref}
-              className="font-body text-sm text-navy-deep bg-gold-sunset hover:bg-amber-candle px-5 h-10 inline-flex items-center transition-colors duration-300"
+              className="font-body text-sm text-navy-deep bg-gold-sunset hover:bg-amber-candle hover:-translate-y-px px-5 h-10 inline-flex items-center transition duration-300"
             >
               {content.nav.reserveLabel}
             </a>
@@ -108,13 +107,13 @@ export function Navbar() {
         <ul className="flex flex-col gap-1 px-6 py-6">
           {content.nav.links.map((link) => (
             <li key={link.href}>
-              <Link
+              <a
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className="block font-display text-xl text-cream py-3 hover:text-amber-candle transition-colors"
               >
                 {link.label}
-              </Link>
+              </a>
             </li>
           ))}
           <li className="pt-4">

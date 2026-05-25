@@ -59,7 +59,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration, delay: baseDelay, ease: EASE }}
-            className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-6"
+            className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-6 leading-[1.2]"
           >
             Ayvalık · Deniz Kenarı
           </motion.p>

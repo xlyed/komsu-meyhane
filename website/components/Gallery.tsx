@@ -35,7 +35,7 @@ export function Gallery() {
     >
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <FadeIn className="max-w-2xl text-center mx-auto">
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-gold-sunset mb-5 leading-[1.2]">
             {content.gallery.eyebrow}
           </p>
           <h2 className="font-display font-light text-cream text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-[0.02em]">
@@ -44,6 +44,7 @@ export function Gallery() {
           <p className="font-body italic text-cream-warm/60 text-sm md:text-base mt-5">
             {content.gallery.lead}
           </p>
+          <span aria-hidden className="mx-auto mt-6 block h-px w-12 bg-ocean-soft/40" />
         </FadeIn>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 md:gap-6 mt-16 md:mt-20">
@@ -57,7 +58,7 @@ export function Gallery() {
                 type="button"
                 onClick={() => open(i)}
                 aria-label={`${item.caption} — büyük göster`}
-                className="group relative w-full h-full overflow-hidden block"
+                className="group relative w-full h-full overflow-hidden block rounded-sm transition-shadow duration-500 hover:ring-1 hover:ring-gold-sunset/20"
               >
                 <div
                   className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
