@@ -362,3 +362,95 @@ Yapılacaklar (asset geldikçe sırayla):
 - **Paket B/C/D scope dışı** — yanlışlıkla scroll parallax, OG image, schema vs. eklenmesin. Plan dosyası sınırı net.
 
 ---
+
+## 2026-05-25 — Session 5 (Paket A premium polish implementasyonu + hash link bug fix)
+
+### Ne yapıldı
+
+**Paket A tamamlandı (commit `7e718bd`, push edildi → Vercel deploy):**
+
+**Foundation (`globals.css`)**
+- Body'ye `font-feature-settings: "kern" 1, "liga" 1, "calt" 1` (kerning + ligature + contextual alternates)
+- HTML'e `text-wrap: pretty` (yetim kelime düzeltme — Chrome/Safari/Firefox destekli)
+- `.font-display` selector'a `font-kerning: auto`
+- **NOT:** Plan'da yazan "Cormorant weight 200" — Google Fonts'ta yok (mevcut: 300/400/500/600/700). `layout.tsx`'e ekleme denemesi 500 error verdi → revert edildi. Drop cap için en ince mevcut weight 300 (`font-light`) kullanıldı.
+
+**Tipografi — 7 bölümün eyebrow'una `leading-[1.2]`**
+- Hero, Atmosphere, Story, Menu, Gallery, Location, Footer (×2)
+
+**Story bölümü**
+- Drop cap'e `font-light` eklendi (mevcut sadece `font-display` idi, default 400 yerine 300 light)
+- Drop cap mevcut `leading-[0.85]` korundu (zaten plan'a uygun)
+- Tüm 3 paragrafa `hyphens-auto` (Türkçe uzun kelimeler için)
+- Pull-quote `md:text-3xl` → `md:text-4xl`
+- Pull-quote üst+alt divider `w-12` → `w-16`
+
+**Hover & micro-interaction tutarlılığı**
+- **Navbar** desktop nav linkleri (4 adet) → CSS `::after` + `scaleX(0→1)` underline reveal (amber-candle/70, 500ms)
+- **Navbar** "Rezervasyon" butonu → `hover:-translate-y-px`, transition `colors` → `transition` (transform da animate olsun)
+- **Footer** telefon link + Instagram handle span'ı → aynı underline reveal pattern
+- **Footer** "Yukarıya dön" tracking `0.2em` → `0.25em`
+- **Menu** kategori kartlarına `hover:shadow-[inset_0_0_24px_rgba(232,184,114,0.05)]` (iç altın glow %5)
+- **Gallery** item button'larına `rounded-sm` + `hover:ring-1 hover:ring-gold-sunset/20` + `transition-shadow duration-500`
+- **Location** üç info `<li>`'sine `group` class, ikon `<span>`'larına `transition-colors duration-500 group-hover:text-amber-candle`
+- **Button primitive** outline variant'a `hover:-translate-y-px` (primary ile tutarlı oldu, base zaten `transition-all` içeriyor)
+
+**Renk paleti diversifikasyonu (2 yeni token aktive — *ölçülü*)**
+- **`gray-stone`** → Footer copyright (`cream-warm/40` → `gray-stone/70`), Menu item dotted divider (`cream/15` → `gray-stone/30`)
+- **`ocean-soft`** → Gallery intro altına `h-px w-12 bg-ocean-soft/40` hairline divider eklendi, Location info kolonuna `lg:border-l lg:border-ocean-soft/30 lg:pl-8` (mobile'da yok, desktop only)
+
+**Lightbox caption rafinesi**
+- Caption'a `tracking-[0.02em]` eklendi
+- Üstüne `h-px w-8 bg-gold-sunset/40 mb-3` divider — caption + divider beraber wrap div'le saralı (parent flex-col gap-5 ile çarpışmasın diye)
+
+**Bonus bug fix (scope dışıydı, müşteri onayladı):**
+- **Sorun:** Müşteri Hero'daki "Menü" butonuna ilk tıkladığında hareket yoktu. Önce başka bir link tıklayınca çalışıyordu. Navbar'daki Menü linkinde de aynı problem.
+- **Teşhis:** Next.js 16'nın `<Link>` component'i aynı sayfa hash anchor'larında (`#menu`, `#hikaye`...) ilk tıklamada smooth scroll'u tetiklemiyor — routing state set ediliyor ama scroll trigger olmuyor.
+- **Fix:**
+  - `Button.tsx`: `isHash = href.startsWith("#")` kontrolü, isHash || isExternal ise native `<a>` render et
+  - `Navbar.tsx`: Logo + 4 desktop nav link + 4 mobile nav link tüm `<Link>` → `<a>` (Link import'u tamamen kaldırıldı)
+- Smooth scroll zaten `globals.css`'te `scroll-behavior: smooth` + `scroll-padding-top: 5rem` (fixed navbar altında kalmasın diye) hazırdı, native `<a>` ile bu çalışır.
+- Müşteri canlıda test etti → "çalışıyor düzeldi" onayı.
+
+**Verification**
+- `npm run lint` → temiz (hiçbir output yok demek hata yok)
+- `npm run build` → başarılı, 5 static page generate edildi
+- Hot reload ile her bölüm anında doğrulandı, ara checkpoint'te (Footer + Navbar) müşteriye gösterildi
+
+### Verilen kararlar (kilitli)
+
+- **Cormorant weight 200 imkansız** — Google Fonts'ta yok. Bir daha eklenmeyecek. Drop cap için en ince mevcut weight `font-light` (300) standart oldu.
+- **Hash linkleri her zaman native `<a>`** — Next.js Link aynı sayfa hash'lerinde güvenilmez (Next 16 davranışı). Yeni Button kullanımları için `Button.tsx`'in `isHash` kontrolü artık otomatik halletmek üzere kalıcı.
+- **Underline reveal pattern (Navbar + Footer)** — CSS-only `::after` + `scaleX` + `origin-left` standart. Yeni link'lerde aynı pattern kullanılmalı.
+- **`hover:-translate-y-px` tutarlı** — Hem primary hem outline Button variant'larında, hem de "Rezervasyon" butonunda aynı subtle lift.
+- **ocean-soft + gray-stone aktive ama "ölçülü"** — Yeni yerlere yayma. Mevcut 4 kullanım yeterli (Gallery hairline, Location border, Footer copyright, Menu divider).
+
+### Henüz YAPILMADI / Sonraki session başlangıcı
+
+**Paket A bitti.** Plan dosyasındaki diğer paketler hâlâ open:
+
+- **Paket B (cinematic animation)**: text reveal, scroll parallax, mum-ışığı blur glow. Daha büyük efor, custom cursor ZORUNLU değil (müşteri istemedi).
+- **Paket C (SEO/teknik altyapı)**: JSON-LD eksiklerini tamamla (sadece Restaurant var, OpeningHoursSpecification + LocalBusiness eklenebilir), OG image, robots.txt, sitemap.xml, security headers
+- **Paket D (gerçek asset)**: Müşteriden gelecek gallery foto + gerçek menü + gerçek çalışma saatleri + Maps embed iframe
+
+**Küçük yapılabilirler:**
+- `.claude/` klasörü hâlâ untracked → `.gitignore`'a eklenebilir (küçük temizlik, 1 dakika)
+- Story drop cap için A/B test: `font-light` (şimdi) vs default (400) — müşterinin gözüne çok mu ince geliyor görmek
+
+### Müşteriden bekleniyor
+
+- **Önceki session'lardan halen**: Gallery fotoları (8-12+), gerçek menü, gerçek çalışma saatleri, Google Maps embed iframe, custom domain
+- **Paket A canlı testi**: Vercel deploy bittikten sonra mobile + desktop'ta tüm hover state'leri elle dolaş (özellikle: navbar underline, footer underline, menu kart inner glow, gallery hover ring, location ikon renk geçişi, lightbox açtığında caption üstündeki divider)
+- **Paket B/C/D karar**: Hangi paket bir sonraki session'da öncelik?
+
+### Notlar / Bilinen riskler
+
+- **Next.js 16 hash anchor bug'ı global lesson** — Tüm yeni component'lerde aynı sayfa anchor linkleri için Next.js `<Link>` kullanma. Button primitive bunu otomatik halleder ama doğrudan `<Link href="#...">` yazılırsa bu bug tekrar gelir.
+- **Cormorant weight 200 imkansız** — `~/.claude/plans/bu-websitesini-bastan-sona-valiant-forest.md` plan dosyası bu detayı yansıtmıyor, ileride o plan tekrar okunursa hatırlanmalı.
+- **Gallery `rounded-sm` + `transition-shadow`** — Hover ring fade'in görünmesi için `transition-shadow` eklendi, button'da daha önce yoktu. Test edildi, sorunsuz.
+- **Location'daki sol border `lg:` only** — Mobile'da hairline border görünmüyor (responsive karar). Müşteri mobile'da test ederse fark etmez.
+- **Lightbox caption wrap div** — Parent `flex-col gap-5` ile çarpışmasın diye caption + divider beraber wrap div'e sarıldı. Düzgün render ediyor ama lightbox açılıp test edilmesi gerekir.
+- **Dev server bu session boyunca background'da çalıştı** (ID `b2ec5qiny`) — session kapanırken durdurulması iyi olur (next session'da fresh başlasın).
+- **Production canlı doğrulaması yapılmadı** — sadece localhost'ta görsel kontrol var; Vercel deploy URL'sinde de bakılması müşteriye öneri.
+
+---
