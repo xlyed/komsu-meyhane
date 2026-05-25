@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Flame, Waves, UtensilsCrossed } from "lucide-react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ImageReveal } from "@/components/ui/ImageReveal";
+import { ParallaxImage } from "@/components/ui/ParallaxImage";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { content } from "@/lib/content";
 
@@ -69,15 +70,17 @@ export function Atmosphere() {
               >
                 <article className="relative w-full h-full group overflow-hidden">
                   <ImageReveal className="absolute inset-0">
-                    <div className="relative w-full h-full transition-transform duration-1000 ease-out group-hover:scale-[1.03]">
-                      <Image
-                        src={visual.src}
-                        alt={visual.alt}
-                        fill
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className="object-cover"
-                      />
-                    </div>
+                    <ParallaxImage className="absolute inset-0" range={40}>
+                      <div className="relative w-full h-full scale-110 transition-transform duration-1000 ease-out group-hover:scale-[1.13]">
+                        <Image
+                          src={visual.src}
+                          alt={visual.alt}
+                          fill
+                          sizes="(min-width: 768px) 50vw, 100vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    </ParallaxImage>
                     <div className="absolute inset-0 bg-linear-to-t from-navy-deep/85 via-navy-deep/30 to-navy-deep/10" />
                   </ImageReveal>
 
