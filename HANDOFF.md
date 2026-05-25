@@ -259,3 +259,106 @@ Yapılacaklar (asset geldikçe sırayla):
 - **Hero video uzunluğu sadece 8s** — loop hissi belirgin olabilir. Daha uzun bir video geldiğinde değiştirilebilir.
 
 ---
+
+## 2026-05-25 — Session 4 (Canlı doğrulama + premium analiz + Paket A planı)
+
+### Ne yapıldı
+
+**Vercel deploy doğrulandı:**
+- Canlı URL: `https://komsu-meyhane.vercel.app/` — site serve ediyor
+- WebFetch ile kontrol: hero copy, bölüm başlıkları, Instagram link, eyebrow notlar hepsi düzgün render
+- Müşteri mobile'da test etti, hamburger menü çalışıyor (diğer testler — video, lightbox, scroll, maps — yapılmadı)
+
+**Footer logo düzeltmesi (commit `59f086e`):**
+- Müşteri uyardı: footer'daki logo navbar'daki "düzelttiğimiz" daireli versiyon ile aynı değil
+- Footer logo'su `logo.png` (feather kenarlı, beyaz arka plan silinmiş) → `logo-original.png` (dairesel alpha mask, temiz kenarlı, navbar scroll'da görünen) ile değiştirildi
+- Tek satır değişiklik: `Footer.tsx:41`
+- Commit + push edildi, Vercel otomatik deploy etti
+
+**Footer "premium upgrade" denemesi (C planı — REJECTED + REVERTED):**
+- Müşteri "footer yazıları dalga gibi dalgalansın" istedi
+- Açıkladım: tüm yazılar dalgalanırsa kitsch riski, sakin/butik hissi bozulur
+- Alternatif önerdim: 4 yön (A poster bg, B hairline wave + tagline, C ikisi birlikte, D hero videosu)
+- Müşteri C seçti — Footer'a hero poster arka plan (opacity 30→55), altın hairline dalga SVG (sin-eğrisi path, transparent→gold→transparent gradient), tagline glow + büyütülmüş display
+- Müşteri "beğenmedim" dedi → `git restore website/components/Footer.tsx` ile son commit'e geri alındı
+- **Hiç commit edilmedi**, working tree değişiklikleri temizlendi
+
+**Tüm site "premium upgrade" incelemesi:**
+- 2 paralel Explore agent: biri bölüm bileşenleri (Navbar, Hero, Atmosphere, Story, Menu, Gallery, Location, Footer + UI primitives), diğeri tasarım sistemi + içerik + asset + teknik altyapı
+- Sentez: site şu an **7.6/10 premium**, eksik **micro-interaction tutarsızlığı, kullanılmayan 2 renk token'i (ocean-soft, gray-stone), tipografi micro-rafinesi (kerning, ligatures, weight 200), JSON-LD eksikleri, OG image eksik, robots/sitemap eksik**
+
+**Plan dosyası yazıldı:**
+- `~/.claude/plans/bu-websitesini-bastan-sona-valiant-forest.md`
+- 4 paket önerildi (A-B-C-D), müşteri **Paket A** seçti
+- Tonu: **çok subtle** (Noma seviyesi değil)
+- Custom cursor: **hayır**
+- 12 dosya değişikliği planlı, ama tek commit hedefi
+- Out-of-scope: Paket B (cinematic animation), Paket C (SEO/teknik altyapı), Paket D (asset entegrasyonu)
+
+### Verilen kararlar (kilitli)
+
+- **Footer logo final:** `logo-original.png` (dairesel, navbar scroll ile aynı). Bir daha değişmeyecek.
+- **Premium upgrade scope = SADECE Paket A:** Micro-interaction polish + tipografi rafinesi + 2 renk token aktivasyonu (ocean-soft, gray-stone). Cinematic animation (text reveal, parallax) ve SEO altyapısı ayrı session'larda.
+- **Animation tonu = "çok subtle":** Mevcut tasarım dilini koruyan, fark edilebilir ama gerekçesi olan tek düzeyde değişiklikler. Bounce/parallax/marquee/cursor yasak.
+- **Custom cursor = HAYIR:** Müşteri tercihi, kapatıldı.
+- **C planı (footer cinematic bg) öğretici reddedildi:** Premium hissi yaratırken "fazla/abartı" hissinden kaçınmak müşteri tercihinde. İleride benzer önerilerde "ölçülü" parametresi öncelikli — *less is more*.
+- **Paket B/C/D ayrı session'larda yapılacak** — paralel scope karışıklığı önlenir.
+
+### Henüz YAPILMADI / Sonraki session başlangıcı = Paket A implementation
+
+**Sıra (plan dosyasından):**
+
+1. **Foundation** (önce):
+   - `app/layout.tsx` → Cormorant Garamond font config'ine weight `200` ekle
+   - `app/globals.css` → `font-feature-settings: "kern" 1, "liga" 1, "calt" 1` body'ye, `text-wrap: pretty` global, `.font-display` selector'a `font-kerning: auto`
+
+2. **Bölüm bölüm** (foundation sonrası, hot reload ile her birinde anında doğrulama):
+   - **Footer** → eyebrow leading, Instagram + phone link underline reveal (CSS `::after` + `scaleX`), copyright `gray-stone/70`
+   - **Navbar** → nav link underline reveal, "Rezervasyon" butonuna `hover:-translate-y-px`
+   - **Menu** → eyebrow leading, kategori kartlarına `hover:shadow-[inset_0_0_24px_rgba(232,184,114,0.05)]`, divider'larda `gray-stone`
+   - **Gallery** → eyebrow leading, item'lara `rounded-sm` + `hover:ring-1 hover:ring-gold-sunset/20`, intro'ya `ocean-soft` accent
+   - **Location** → eyebrow leading, info ikon container'lara `group` + `group-hover:text-amber-candle`, info kolonuna sol border `border-l border-ocean-soft/30`
+   - **Atmosphere** → eyebrow leading
+   - **Story** → eyebrow leading, drop cap weight `200`, drop cap `leading-[0.85]`, paragraflara `hyphens: auto`, pull-quote büyütme (`text-2xl md:text-4xl`), divider `w-12 → w-16`
+   - **Hero** → eyebrow leading
+
+3. **Lightbox** (son):
+   - Caption tipografisi: `font-display italic text-amber-candle/90 text-base md:text-lg tracking-[0.02em]`
+   - Üstüne altın divider: `h-px w-8 bg-gold-sunset/40 mb-3`
+
+4. **Button** (UI primitive):
+   - `outline` variant'a `hover:-translate-y-px` ekle (şu an sadece primary)
+
+5. **Final golden path:**
+   - Desktop (1440px) + tablet (768px) + mobile (375px) elle hover state test
+   - `prefers-reduced-motion` testi
+   - `npm run lint` + `npm run build` temiz olmalı
+   - Müşteri ekranda gör + onay
+
+6. **Tek commit + push:** `"Paket A — premium polish (micro-interaction + tipografi)"`
+
+### Bir sonraki session'da nereden başlanacak
+
+1. Bu HANDOFF entry'sini oku
+2. Plan dosyasını oku: `~/.claude/plans/bu-websitesini-bastan-sona-valiant-forest.md`
+3. Müşteriye sor: "Premium polish (Paket A) planı hazır, başlayalım mı?"
+4. Foundation adımıyla başla (layout.tsx + globals.css), her bölümde hot reload kontrolü
+
+### Müşteriden bekleniyor
+
+- **Hâlâ önceki session'lardan**: Gallery fotoları (8-12+), gerçek menü, gerçek çalışma saatleri, Google Maps embed iframe, custom domain (opsiyonel)
+- **Vercel canlı testleri**: video performans (mobile cihazda), lightbox, scroll behavior, maps render — müşteri başka session'da test etmek isterse
+- **Yok**: Paket A için müşteri input'una ihtiyaç yok, plan dosyasıyla yeterli
+
+### Notlar / Bilinen riskler
+
+- **Plan 12 dosya değişikliği içeriyor** — yeni session fresh context ile başlasın, foundation + 2 bölüm sonra ara gösterim önerilir (müşteri "fazla" gelirse erkenden geri al)
+- **Underline reveal pattern (Navbar + Footer)** — CSS-only `::after` + `scaleX(0)` → `scaleX(1)` ile universal browser support
+- **Cormorant weight 200 ince görünebilir** → sadece drop cap + pull-quote'da kullan, default başlıklar 300 kalır
+- **Türkçe hyphenation** sadece Story paragraflarında, başlıklarda asla
+- **Subtle birikimi riski** — toplu görüldüğünde fazla gelirse "çok subtle" yeniden tunlanır, gerekirse bölüm geri alınır
+- **`.claude/` klasörü untracked** — `.gitignore`'a eklenmesi gerekebilir (küçük temizlik, Paket A başında yapılabilir)
+- **C planı reddi öğretici** — "premium hissi vermek" ≠ "süs eklemek". Müşteri *less is more* yaklaşımını sezgisel olarak istiyor. Gelecek önerilerde "ölçülü" varsayılan olsun.
+- **Paket B/C/D scope dışı** — yanlışlıkla scroll parallax, OG image, schema vs. eklenmesin. Plan dosyası sınırı net.
+
+---
