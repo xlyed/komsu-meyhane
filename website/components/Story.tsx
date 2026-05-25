@@ -37,7 +37,7 @@ export function Story() {
         <div className="mt-16 md:mt-20 space-y-10">
           <FadeIn delay={0.05}>
             <p className="font-display font-light text-cream-warm text-lg md:text-xl leading-[1.85] hyphens-auto">
-              <span className="float-left font-display font-light text-amber-candle text-7xl md:text-8xl leading-[0.85] mr-3 mt-1">
+              <span className="float-left font-display font-light text-amber-candle text-7xl md:text-8xl leading-[0.85] mr-3 mt-1 candle-glow">
                 {firstLetter}
               </span>
               {firstRest}

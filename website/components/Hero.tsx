@@ -72,7 +72,7 @@ export function Hero() {
             delay={baseDelay + stagger}
             stagger={prefersReducedMotion ? 0 : 0.05}
             duration={duration}
-            className="font-display font-light text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-[0.04em]"
+            className="font-display font-light text-cream text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-[0.04em] candle-glow"
           />
 
           <motion.p

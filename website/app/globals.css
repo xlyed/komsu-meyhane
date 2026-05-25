@@ -44,3 +44,24 @@ body {
   background-color: var(--color-gold-sunset);
   color: var(--color-navy-deep);
 }
+
+@keyframes candle-glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(232, 184, 114, 0.22), 0 0 6px rgba(232, 184, 114, 0.15);
+  }
+  50% {
+    text-shadow: 0 0 42px rgba(232, 184, 114, 0.55), 0 0 12px rgba(232, 184, 114, 0.32);
+  }
+}
+
+.candle-glow {
+  animation: candle-glow 3.2s ease-in-out infinite;
+  animation-delay: 0.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .candle-glow {
+    animation: none;
+    text-shadow: 0 0 32px rgba(232, 184, 114, 0.5);
+  }
+}
